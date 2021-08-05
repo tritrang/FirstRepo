@@ -1,3 +1,6 @@
+from database import create_table, add_entry, get_entries
+
+
 menu = """Please select one of the following options:
 1) Add new entry for today
 2) View entries
@@ -7,14 +10,31 @@ Your selection: """
 
 welcome = "Welcome to the programming diary!"
 
+
+def prompt_new_entry():
+    entry_content = input("What have you learned today? ")
+    entry_date = input("Enter the date: ")
+    add_entry(entry_content, entry_date)
+
+
+def view_entries(entries):
+    for entry in entries:
+        print(f"On {entry['date']}, I learned {entry['content']}\n\n")
+
+# The program starts here
+
+
 print(welcome)
+create_table()
 
 while (user_input := input(menu)) != "3":
     # We'll deal with user input here...
     if user_input == "1":
-        print("Adding...")
+        prompt_new_entry()
+
     elif user_input == "2":
-        print("Viewing...")
+        view_entries(get_entries())
+
     else:
         print("Invalid Option. Please choose only one of these three numbers: 1, 2, 3.")
 
