@@ -1,10 +1,12 @@
 import os
 import psycopg2
+import psycopg2.extras
 from dotenv import load_dotenv
 
 load_dotenv()
 
 connection = psycopg2.connect(os.environ['DATABASE_URL'])
+# connection.row_factory = psycopg2.dict
 
 
 def create_table():
@@ -20,4 +22,6 @@ def add_entry(entry_content, entry_date):
 
 
 def get_entries():
-    return entries
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cursor.execute("SELECT * FROM entries;")
+    return cursor.fetchall()
