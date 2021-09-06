@@ -119,16 +119,26 @@ def recommend(person, rating_list: Dict) -> List:
 
 
 def main():
-    person = str(input("Who are we recommending books to? ").lower())
+    person = str(input("Who are you recommending books to? ").lower())
 
-    print("----------------------------------------")
-    print("Two friends with highest affinity scores are: ")
-    for friend, score in get_two_friends(person):
-        print(f"- {friend.capitalize()} who has {score} affinity score compared to {person.capitalize()}")
-    print("----------------------------------------")
-    print("Recommended books are: ")
-    for author, book in recommend(person, reader_ratings):
-        print(f"- {book} by {author}")
+    if person in readers:
+        print("----------------------------------------")
+        print("Two friends with highest affinity scores are: ")
+        for friend, score in get_two_friends(person):
+            print(f"- {friend.title()} who has {score} affinity score compared to {person.title()}")
+        print("----------------------------------------")
+        print("Recommended books are: ")
+        for author, book in recommend(person, reader_ratings):
+            print(f"- {book} by {author}")
+    else:
+        print("----------------------------------------")
+        print(f"{person.title()} doesn't exist in ratings.txt")
+        print("----------------------------------------")
+        print("Here is a list of names that currently exist in ratings.txt")
+        count = 0
+        for name in readers:
+            count += 1
+            print(f"{count}. {name.title()}")
 
 
 if __name__ == "__main__":
