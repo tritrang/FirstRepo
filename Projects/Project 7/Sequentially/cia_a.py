@@ -38,6 +38,7 @@ def main():
     bytes_downloaded = sum(bytes_downloaded_list)
     end_time = time.perf_counter()
     with open("summary.txt", 'w') as f2:
+        f2.write("Sequentially")
         f2.write(f"Elapsed time: {end_time - start_time} \n")
         f2.write(f"{bytes_downloaded} bytes downloaded")
 
